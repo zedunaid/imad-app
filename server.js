@@ -5,20 +5,126 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
+var articles={
+'article-one':{
+    
+    title: 'Article One | ZHS Creations',
+    heading: 'Article One',
+    date: 'Aug 6, 2017',
+    content: `
+         <p>
+            Hello! Welcome to my article one.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+        </p>
+        
+        <p>est text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test textHello! Welcome to my article one.Hola!T
+        </p>  
+        
+         <p>
+           Hello! Welcome to my article one.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+        </p>`
+    },
+
+'article-two':{
+    
+    title: 'Article Two | ZHS Creations',
+    heading: 'Article Two',
+    date: 'Aug 7, 2017',
+    content: `
+        <p>
+            Hello! Welcome to my article Two.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+        </p>
+        
+        
+        
+         <p>
+           Hello! Welcome to my article Two.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+        </p>`
+    
+    
+},
+
+'article-three':{
+    
+    title: 'Article Three | ZHS Creations',
+    heading: 'Article Three',
+    date: 'Aug 8, 2017',
+    content: `
+                <p>
+            Hello! Welcome to my article Three.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+                </p>
+             <p>
+           Hello! Welcome to my article Three.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.Hola!Test text.
+          </p>`
+    
+    
+}
+
+};
+
+
+
+
+
+function createTemplate(data)
+{
+  var title=data.title;
+  var date=data.date;
+  var heading=data.heading;
+  var content=data.content;
+   var htmlTemplate =`
+     <html>
+    <head>
+       
+        <title>${title}</title>
+        <link href="/ui/style.css" rel="stylesheet" />
+        <meta name="view port" content="width=device-width, initial-scale=1"/>
+        <style>
+           
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+        <div>
+          <a href="/">Home</a>
+                  </div>
+          <hr/>
+            
+        <h3>${heading}</h3>
+        <div>
+            ${date}
+        </div>
+        <div>
+       ${content}
+           </div> 
+        </div>
+    </body>
+    `;
+    return htmlTemplate;
+}
+
+
+
+
+
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function (req, res) {
-   res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+app.get('/:articleName', function (req, res) {
+    //articleName == article-one
+    //articles == {} content object for article one
+    var  articleName=req.params.articleName;
+   res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/article-two', function (req, res) {
-   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+   res.send(createTemplate(articleTwo));
 });
 
 app.get('/article-three', function (req, res) {
-   res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  res.send(createTemplate(articleThree));
 });
 
 

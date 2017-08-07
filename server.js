@@ -118,8 +118,12 @@ app.get('/:articleName', function (req, res) {
     var  articleName=req.params.articleName;
    res.send(createTemplate(articles[articleName]));
 });
-
-
+//counter endpoint
+var counter=0;
+app.get('/counter', function (req, res) {
+    counter=counter+1;
+  res.sendFile(counter.toString());
+});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));

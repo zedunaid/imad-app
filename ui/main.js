@@ -6,7 +6,7 @@ element.innerHTML='ZHS welcomes you!';
 
 //move image
 var ele=document.getElementById('zhs');
-var marginleft=0;
+var marginLeft=0;
 function moveRight()
 {
     marginLeft=marginLeft+10;

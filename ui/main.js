@@ -1,23 +1,25 @@
-console.log('Loaded!');
-//changing text
+//counter codde
 
-var element=document.getElementById('main-text');
-element.innerHTML='ZHS welcomes you!';
-element.onclick=function()
+var button=documment.getElementById('counter');
+button.onclick=function()
 {
-   element.innerHTML='1% chance,99% faith!'
-}
-
-
-//move image
-var ele=document.getElementById('zhs');
-var marginLeft=0;
-function moveRight()
-{
-    marginLeft=marginLeft+10;
-    ele.style.marginLeft=marginLeft+'px';
-}
-ele.onclick=function()
-{
-   var interval=setInterval(moveRight,100) ;
-}
+    //Make a request to counter end point
+    var request=new XMLHttpRequest();
+    
+    //capture the response and store it in a variable
+    request.onreadystatechange=function() {
+        if(request.readystate == XMLHttpRequest.DONE){
+            //Take some action
+            if(request.status == 200)
+            {
+                var counter=request.responseText;
+                var span = document.getElementById('count');
+                span.innerHTML=counter.toString();
+            }
+        }
+    };
+    
+    //Make a request
+    request.open('GET','http://zunaidsorathiya9.imad.hasura-app.io',true);
+    request.send(null);
+};

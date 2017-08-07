@@ -3,6 +3,11 @@ console.log('Loaded!');
 
 var element=document.getElementById('main-text');
 element.innerHTML='ZHS welcomes you!';
+element.onclick=function()
+{
+   element.innerHTML='1% chance,99% faith!'
+}
+
 
 //move image
 var ele=document.getElementById('zhs');
@@ -14,5 +19,5 @@ function moveRight()
 }
 ele.onclick=function()
 {
-   var interval=setInterval(moveRight,50) ;
+   var interval=setInterval(moveRight,100) ;
 }

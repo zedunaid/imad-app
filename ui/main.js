@@ -1,4 +1,4 @@
-//counter codde
+//counter code
 
 var button=documment.getElementById('counter');
 button.onclick=function()

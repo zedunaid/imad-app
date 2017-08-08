@@ -120,10 +120,10 @@ app.get('/:articleName', function (req, res) {
 });
 
 //counter endpoint
-var counter=0;
+var ctr=0;
 app.get('/counter', function (req, res) {
-    counter=counter+1;
-  res.send(counter.toString());
+    ctr=ctr+1;
+  res.send(ctr.toString());
 });
 
 app.get('/ui/style.css', function (req, res) {
@@ -134,6 +134,9 @@ app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
+app.get('/favicon.ico', function(req, res) {
+    res.status(204);
+});
 
 app.get('/ui/zhs.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'zhs.png'));

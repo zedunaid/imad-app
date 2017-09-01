@@ -1,7 +1,15 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
+var Pool = require('pg').Pool;
 
+var config={
+    user: 'zunaidsorathiya9',
+    database: 'zunaidsorathiya9',
+    host: 'db.imad.hasura-app.io',
+    port: '5432',
+    password: process.env.DB_PASSWORD
+}
 var app = express();
 app.use(morgan('combined'));
 
@@ -92,7 +100,7 @@ function createTemplate(data)
             
         <h3>${heading}</h3>
         <div>
-            ${date}
+            ${date.toDateString()}
         </div>
         <div>
        ${content}
@@ -112,11 +120,10 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/:articleName', function (req, res) {
-    //articleName == article-one
-    //articles == {} content object for article one
-    var  articleName=req.params.articleName;
-   res.send(createTemplate(articles[articleName]));
+var pool=new Pool(config);
+app.get('/test-db', function (req, res) {
+  //make a select request
+  //return a response
 });
 
 //counter endpoint
@@ -126,6 +133,47 @@ app.get('/counter', function (req, res) {
   res.send(ctr.toString());
 });
 
+var names=[];
+app.get('/submit-name', function(req, res) {//url: /submit-name?name=xxx
+    //get the names
+    var name=req.query.name;
+    names.push(name);
+    res.send(JSON.stringify(names));
+});
+
+app.get('articles/:articleName', function (req, res) {
+    //articleName == article-one
+    //articles == {} content object for article one
+    var  articleName=req.params.articleName;
+    pool.query("select * from article where title ='"+req.params.articleName+"'",function (err,result)
+    {
+        if(err)
+        {
+            res.status(500).send(err.toString());
+        }
+        else {
+            
+            if(result.rows.length === 0)
+            {
+             res.status(404).send('No Article Found');    
+            }
+            else
+            {
+             var articleData=result.rows[0];
+             
+              res.send(createTemplate(articleData));
+            }
+        }
+        
+        
+    }
+    );
+  
+});
+
+
+
+
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
@@ -134,14 +182,15 @@ app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
 
-app.get('/favicon.ico', function(req, res) {
-    res.status(204);
-});
+
 
 app.get('/ui/zhs.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'zhs.png'));
 });
 
+app.get('/ui/back.jpg', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'back.jpg'));
+});
 
 // Do not change port, otherwise your app won't run on IMAD servers
 // Use 8080 only for local development if you already have apache running on 80

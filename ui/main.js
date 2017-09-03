@@ -33,7 +33,7 @@ button.onclick=function()
     console.log(password);
     
     //Make a request
-    request.open('POST','http://zunaidsorathiya9.imad.hasura-app.io/counter',true);
+    request.open('POST','http://zunaidsorathiya9.imad.hasura-app.io/login',true);
     request.setRequestHeader('Content-Type','application/json');
     request.send(JSON.stringify({username: username , password: password}));
 };
@@ -64,6 +64,6 @@ button.onclick=function()
     };
     
     //Make a request
-    request.open('GET','http://zunaidsorathiya9.imad.hasura-app.io/counter',true);
+    request.open('GET','http://zunaidsorathiya9.imad.hasura-app.io/login',true);
     request.send(null);
 };*/

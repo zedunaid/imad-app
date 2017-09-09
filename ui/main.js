@@ -22,7 +22,7 @@ button.onclick=function()
             
               else if(request.status == 500)
             {
-                alert('OOPs ! Something Went Wrong!')l
+                alert('OOPs ! Something Went Wrong!');
             }
         }
     };

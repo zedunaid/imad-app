@@ -1,7 +1,7 @@
 //login check
 
 var submit=document.getElementById('submitButton');
-button.onclick=function()
+submit.onclick=function()
 {
     //Make a request to counter end point
     var request=new XMLHttpRequest();

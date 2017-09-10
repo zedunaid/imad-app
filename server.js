@@ -158,7 +158,7 @@ pool.query('insert into "user" (username,password) values ($1,$2)',[username,dbS
         else {
         
              
-              res.send("User successfully created"+username);
+              res.send(JSON.stringify({"message":"User successfully created"+username}));
             
         }
 }

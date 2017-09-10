@@ -193,7 +193,7 @@ pool.query('select * from "user" where username=$1',[username],function (err,res
              }
              else
              {
-                 var dbString=result.row[0].password;
+                 var dbString=result.rows[0].password;
                  var salt=dbString.split('$')[2];
                  var hashedPass=hash(dbString,salt);
                  if(dbString==hashedPass)

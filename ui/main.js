@@ -8,19 +8,19 @@ submit.onclick=function()
     
     //capture the response and store it in a variable
     request.onreadystatechange=function() {
-        if(request.readyState == XMLHttpRequest.DONE){
+        if(request.readyState === XMLHttpRequest.DONE){
             //Take some action
-            if(request.status == 200)
+            if(request.status === 200)
             {
                 alert('Successfully Logged In');
             }
             
-           else if(request.status == 403)
+           else if(request.status === 403)
             {
                 alert('invalid username/password');
             }
             
-              else if(request.status == 500)
+              else if(request.status === 500)
             {
                 alert('OOPs ! Something Went Wrong!');
             }

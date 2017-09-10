@@ -195,7 +195,7 @@ pool.query('select * from "user" where username=$1',[username],function (err,res
              {
                  var dbString=result.rows[0].password;
                  var salt=dbString.split('$')[2];
-                 var hashedPass=hash(dbString,salt);
+                 var hashedPass=hash(password,salt);
                  if(dbString===hashedPass)
                  {
                 req.session.auth = {userId: result.rows[0].id};

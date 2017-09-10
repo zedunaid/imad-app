@@ -189,7 +189,7 @@ pool.query('select * from "user" where username=$1',[username],function (err,res
              
              if(result.rows.length===0)
              {
-                 res.status(403).send('empty invalid username/password');
+                 res.status(403).send(JSON.stringify({"error":"Username/Password is incorrect empty"}));
              }
              else
              {
@@ -199,11 +199,11 @@ pool.query('select * from "user" where username=$1',[username],function (err,res
                  if(dbString===hashedPass)
                  {
                 req.session.auth = {userId: result.rows[0].id};
-                 res.send('credentials are correct');
+               res.send(JSON.stringify({"message":"credentials are correct"}));
              }
                  else
              {
-                 res.status(403).send('invalid username/password');
+                  res.status(403).send(JSON.stringify({"error":"Username/Password is incorrect"}));  
              }
                  
              }

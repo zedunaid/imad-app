@@ -278,14 +278,14 @@ app.get('/get-articles', function (req, res) {
       if (err) {
           res.status(500).send(err.toString());
       } else {
-           //res.setHeader('Content-Type', 'application/json');
-          //res.send(JSON.stringify(result.rows));
+           res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify(result.rows));
           
-          for(var i=0; i<result.rows.length; i++){
+          /*for(var i=0; i<result.rows.length; i++){
                 var article = result.rows[i];
                 arti.push(article);
             }
-            res.send(JSON.stringify(arti));
+            res.send(JSON.stringify(arti));*/
       }
    });
 });
